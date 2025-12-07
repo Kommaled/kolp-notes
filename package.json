@@ -1,0 +1,94 @@
+{
+  "name": "kolp",
+  "version": "1.0.0",
+  "description": "KOLP NOTES - End-to-end encrypted note-taking application with .klp format",
+  "main": "dist/main/main.js",
+  "author": "KOLP Team",
+  "license": "MIT",
+  "scripts": {
+    "start": "npm run build && electron .",
+    "dev": "concurrently \"npm run watch:main\" \"npm run watch:renderer\" \"wait-on http://localhost:3000 && electron .\"",
+    "build": "npm run build:main && npm run build:renderer",
+    "build:main": "webpack --config webpack.main.config.js",
+    "build:renderer": "webpack --config webpack.renderer.config.js",
+    "watch:main": "webpack --config webpack.main.config.js --watch",
+    "watch:renderer": "webpack serve --config webpack.renderer.config.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac",
+    "dist:linux": "electron-builder --linux"
+  },
+  "build": {
+    "appId": "com.kolp.app",
+    "productName": "Kolp",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "fileAssociations": [
+      {
+        "ext": "klp",
+        "name": "Kolp File",
+        "description": "Kolp backup file",
+        "mimeType": "application/x-kolp",
+        "role": "Editor"
+      }
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "src/assets/icon.ico"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "assets/icon.icns"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "assets/icon.png"
+    }
+  },
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "dexie": "^3.2.4",
+    "electron-store": "^8.2.0",
+    "googleapis": "^167.0.0",
+    "marked": "^11.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-markdown": "^9.0.1",
+    "react-quill": "^2.0.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.2.1",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@types/uuid": "^9.0.7",
+    "concurrently": "^8.2.2",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.8.1",
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
+    "html-webpack-plugin": "^5.6.0",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "wait-on": "^7.2.0",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}

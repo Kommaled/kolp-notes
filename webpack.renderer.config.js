@@ -1,0 +1,49 @@
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+module.exports = {
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+  entry: './src/renderer/index.tsx',
+  target: 'electron-renderer',
+  devtool: 'source-map',
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js', '.css'],
+    alias: {
+      '@': path.resolve(__dirname, 'src/renderer'),
+      '@components': path.resolve(__dirname, 'src/renderer/components'),
+      '@utils': path.resolve(__dirname, 'src/renderer/utils'),
+      '@hooks': path.resolve(__dirname, 'src/renderer/hooks'),
+      '@types': path.resolve(__dirname, 'src/renderer/types'),
+    },
+  },
+  output: {
+    filename: 'renderer.js',
+    path: path.resolve(__dirname, 'dist/renderer'),
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/renderer/index.html',
+    }),
+  ],
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist/renderer'),
+    },
+    port: 3000,
+    hot: true,
+  },
+};
