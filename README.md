@@ -3,7 +3,6 @@
 A secure, end-to-end encrypted note-taking application built with Electron and React.
 
 ![Kolp Notes](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
 ## Features
